@@ -1,8 +1,8 @@
 import youtube_client as YouTubeClient
 import spotify_client as SpotifyClient
 import os 
-
-
+#the 2 imports are still correct and ill replace them soon enough
+#still need a credentials file along with these 3
 def run():
     youtube_client=YouTubeClient('')
     spotify_client= SpotifyClient(os.getenv('SPOTIFY_AUTH_TOKEN'))
