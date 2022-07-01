@@ -74,6 +74,9 @@ input:focus{
     border-radius: 25px;
     margin: 0 auto;
 }
+.search_btn:hover{
+    cursor: pointer;
+}
 
 /* footer styles */
 footer{
