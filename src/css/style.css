@@ -1,20 +1,20 @@
 :root{
-    --background: #034159;
-    --c1: #025951;
-    --c2: #02735E;
-    --c3: #038C3E;
-    --c4: #0CF25D;
-    /* --f1: 'PT Sans', sans-serif; */
-    --f2: 'Ubuntu', sans-serif;
-    --f3: 'Titan One', cursive;
+    --background: #011526;
+    --c1: #012E40;
+    --c2: #025959;
+    --c3: #02735E;
+    --c4: #038C65;
+    --f1: 'Arvo', serif;
+    --f2: 'Shadows Into Light', cursive;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--f2);
+    font-family: var(--f1);
     text-align: center;
+    color: white;
 }
 
 body{
@@ -25,8 +25,8 @@ h1{
     font-size: 5rem;
     color: var(--c4);
     text-align: center;
-    font-family: var(--f3);
-    margin: 5rem auto 2rem;
+    font-family: var(--f2);
+    margin: 6rem auto 0;
     text-shadow: 5px 5px 2px black;
 }
 
@@ -48,7 +48,15 @@ input:focus{
     margin: 0 auto;
     height: 100vh;
     padding: 1rem;
-    max-width: 1200px;
+    max-width: 1850px;
+    position: relative;
+}
+
+/* nav styles */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* inputs and search_btn styles */
@@ -59,13 +67,13 @@ input:focus{
     background-color: var(--c2);
     color: black;
     font-size: 0.9rem;
-    margin: 3rem auto 1rem;
+    margin: 4rem auto 0.2rem;
     border-radius: 15px;
     text-align: left;
 }
 
 .search_btn{
-    width: 70%;
+    width: 60%;
     padding: 1rem;
     border: 3px solid var(--c1);
     background-color: var(--c3);
@@ -80,11 +88,11 @@ input:focus{
 
 /* footer styles */
 footer{
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1rem;
+    padding: 1rem 2.5rem;
 }
 footer p{
     margin: 0.5rem;
@@ -105,7 +113,7 @@ footer p{
     }
 
     .search_btn{
-        width: 60%;
+        width: 50%;
     }
 }
 
@@ -157,9 +165,37 @@ footer p{
      }
 }
 
-/* 1200px media query */
-@media (min-width: 1200px) {
+/* 1000px media query */
+@media (min-width: 1000px) {
     * {
         font-size: 18px;
+    }
+}
+
+/* 1200px media query */
+@media (min-width: 1200px){
+    * {
+        text-align: left;
+    }
+    h1{
+        text-align: left;
+        margin: 10rem auto -2rem;
+    }
+    .desc{
+        font-size: 1.5rem;
+    }
+    .inputs{
+        max-width: 1200px;
+        margin-left: 0;
+    }
+}
+
+/* 1600px media query */
+@media (min-width: 1600px){
+    h1{
+        margin-top: 15rem;
+    }
+    .inputs{
+        margin-top: 4rem;
     }
 }
