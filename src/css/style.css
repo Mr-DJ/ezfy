@@ -46,7 +46,7 @@ input:focus{
 .container{
     width: 100%;
     margin: 0 auto;
-    height: 100vh;
+    min-height: 100vh;
     padding: 1rem;
     max-width: 1850px;
     position: relative;
