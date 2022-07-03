@@ -6,7 +6,8 @@ def run():
     youtube_client=YouTubeClient('') #this part runs by fetching the the credentials client_secrets file
     spotify_client= SpotifyClient(os.getenv('Spotify_auth_token')) 
     #this is where you enter your spotify token
-    #unfortunately im gonna need a better way to access this token for distribution purposes, as this only runs locally
+    #unfortunately im gonna need a better way to access this token for distribution purposes, as this method is only
+    #feasable if it runs locally
    
    
     playlists=youtube_client.get_playlists()
