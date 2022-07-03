@@ -18,7 +18,7 @@ class Song(object):
     def __init__(self, artist, track):
         self.artist=artist
         self.track=track
-
+#this part is prewritten youtube playlists code translated to python
 class YouTubeClient(object):
     
     def __init__(self, credentials_location, youtube_client):
@@ -40,7 +40,9 @@ class YouTubeClient(object):
             api_service_name, api_version, credentials=credentials)
 
         self.youtube_client = youtube_client
-
+#3 functions 1 for fetching the playlist from youtube
+# 1 for extracting the videos from the user playlist 
+# 1 for recognizing the artist and track id from youtube itself
     def get_playlists(self):
         request = self.youtube_client.playlists().list(
             part ="id, snippet",

@@ -1,18 +1,26 @@
 from yootoob import YouTubeClient
 from spoopfy import SpotifyClient
 import os 
-#the 2 imports are still correct and ill replace them soon enough
-#still need a credentials file along with these 3
+
 def run():
-    youtube_client=YouTubeClient('./creds/client_secret_216271989208-ntv3aeerc1cl05dtje5ce3h3hrnd3b46.apps.googleusercontent.com.json')
-    spotify_client= SpotifyClient(os.getenv('Spotify_auth_token'))
+    youtube_client=YouTubeClient('') #this part runs by fetching the the credentials client_secrets file
+    spotify_client= SpotifyClient(os.getenv('Spotify_auth_token')) 
+    #this is where you enter your spotify token
+    #unfortunately im gonna need a better way to access this token for distribution purposes, as this only runs locally
+   
+   
     playlists=youtube_client.get_playlists()
 
     for index, playlist in enumerate(playlists):
         print(f"{index}: {playlist.title}")
     choice=int(input('Enter choice plz'))
     chosen_playlist=playlists[choice]
-    print(f"You selected:{chosen_playlist.title}")
+    print(f"You selected:{chosen_playlist.title}")      
+    #this is the file that you run
+    #it imports all of the contents from
+    #the other 2 files, but still do not know
+    #how to fetch a person's youtube playlist
+    #through client credentials and spotify token
 
     songs=youtube_client.get_videos_from_playlist(chosen_playlist.id)
     print(f"adding {len(songs)}")
