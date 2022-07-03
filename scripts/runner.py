@@ -1,11 +1,11 @@
-import youtube_client as YouTubeClient
-import spotify_client as SpotifyClient
+from yootoob import YouTubeClient
+from spoopfy import SpotifyClient
 import os 
 #the 2 imports are still correct and ill replace them soon enough
 #still need a credentials file along with these 3
 def run():
-    youtube_client=YouTubeClient('')
-    spotify_client= SpotifyClient(os.getenv('SPOTIFY_AUTH_TOKEN'))
+    youtube_client=YouTubeClient('./creds/client_secret_216271989208-ntv3aeerc1cl05dtje5ce3h3hrnd3b46.apps.googleusercontent.com.json')
+    spotify_client= SpotifyClient(os.getenv('Spotify_auth_token'))
     playlists=youtube_client.get_playlists()
 
     for index, playlist in enumerate(playlists):

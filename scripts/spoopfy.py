@@ -27,7 +27,7 @@ class SpotifyClient(object):
         else:
             raise Exception(f"song not found for{artist}={track}")
    
-    def add_song_(self, song_id):
+    def add_song_to_spotify(self, song_id):
         url="https://api.spotify.com/v1/me/tracks"
         response=requests.put(
             url,

@@ -21,7 +21,7 @@ class Song(object):
 
 class YouTubeClient(object):
     
-    def __init__(self, credentials_location):
+    def __init__(self, credentials_location, youtube_client):
         scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 
 
@@ -41,7 +41,7 @@ class YouTubeClient(object):
 
         self.youtube_client = youtube_client
 
-    def fetch_playlists(self):
+    def get_playlists(self):
         request = self.youtube_client.playlists().list(
             part ="id, snippet",
             maxResults=50,
@@ -50,7 +50,9 @@ class YouTubeClient(object):
         response = request.execute()
 
         playlists=[Playlist(item['id'], item['snippet']['title']) for item in response['items']]
-    def fetch_vids(self, playlist_id):
+        return playlists
+        
+    def get_videos_from_playlist(self, playlist_id):
         songs=[]
         request = self.youtube_client.playlistItems().list(
             playlistId=playlist_id,
@@ -65,7 +67,7 @@ class YouTubeClient(object):
         return songs
     
     
-    def fetch_artist_track(self, video_id):
+    def get_artist_and_track_from_video(self, video_id):
         youtube_url= f"https://www.youtube.com/watch?v={video_id}"
 
         video= youtube_dl.YoutubeDL({'quiet': True}).extract_info(
