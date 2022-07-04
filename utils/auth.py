@@ -1,8 +1,13 @@
 import requests
+import os
+import dotenv
+from dotenv import load_dotenv , find_dotenv
+
+load_dotenv(find_dotenv())
 
 def get_oauth():
-    client_id = "xxxx" #from dashboard
-    client_secret = "xxxx" # from dashboard
+    client_id = os.environ['CLIENT_ID'] #from dashboard
+    client_secret = os.environ['CLIENT_SECRET']  # from dashboard
 
     AUTH_URL = 'https://accounts.spotify.com/api/token'
 
