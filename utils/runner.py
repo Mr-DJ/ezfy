@@ -1,10 +1,12 @@
 from yootoob import YouTubeClient
-from spoopfy import SpotifyClient
+from spoopyfy import SpotifyClient
 import os 
+from dotenv import load_dotenv ,find_dotenv
+from auth import get_oauth
 
 def run():
     youtube_client=YouTubeClient('') #this part runs by fetching the the credentials client_secrets file
-    spotify_client= SpotifyClient(os.getenv('Spotify_auth_token')) 
+    spotify_client= SpotifyClient(get_oauth()) 
     #this is where you enter your spotify token
     #unfortunately im gonna need a better way to access this token for distribution purposes, as this method is only
     #feasable if it runs locally
