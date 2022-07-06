@@ -86,7 +86,7 @@ def initiate_playlist():
     
     request_body = json.dumps(
         {
-            "name": "My New Geeks Playlist",
+            "name": "New Playlist",
             "description": "Songs",
             "public": True,
         }
