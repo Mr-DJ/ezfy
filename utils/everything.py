@@ -5,6 +5,7 @@ import googleapiclient.errors
 import youtube_dl
 import requests
 import json
+import urllib.parse as ul
 spotify_token = '' #this is where the spotify token should be entered
 spotify_user_id = '' #the spotify user_id
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
@@ -59,13 +60,10 @@ def extract_youtube_song(dic):
     return info
   
   
-def get_spotify_uri(track, artist):
-    
-  
-    query = "https://api.spotify.com/v1/search?\
-    query=track%3A{}+artist%3A{}&type=track".format(
-        track,
-        artist
+def get_spotify_uri(track):
+    track = ul.quote(track)
+    query = "https://api.spotify.com/v1/search?q={}&type=track".format(
+        track,  
     )
     response = requests.get(
         query,
@@ -77,9 +75,9 @@ def get_spotify_uri(track, artist):
     response = response.json()
     songs = response["tracks"]["items"]
   
-    url = songs[0]["uri"]
+    uri = songs[0]["uri"]
   
-    return url
+    return uri
   
   
 def initiate_playlist():
@@ -105,24 +103,29 @@ def initiate_playlist():
     return response["id"] # or return response["items"][0]["id"]
   
   
-def add_song(playlist_id, urls):
+def add_song(playlist_id, uris):
     """Add all liked songs into a new Spotify playlist"""
   
-    request_data = json.dumps(urls)
+    request_data = {
+        "uris":uris
+    }
   
     query = "https://api.spotify.com/v1/playlists/{}/tracks".format(
         playlist_id)
   
     response = requests.post(
         query,
-        data=request_data,
+        params=request_data,
         headers={
             "Content-Type": "application/json",
             "Authorization": "Bearer {}".format(spotify_token)
         }
     )
-  
-    return "songs added successfully"
+    try:
+        response.json()['snapshot_id']
+        return "songs added successfully"
+    except:
+        return "Couldn't add song"
   
   
 # this function runs to get the prewritten youtube playlist code, i.e receiving playlist data
