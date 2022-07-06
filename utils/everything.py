@@ -102,7 +102,7 @@ def initiate_playlist():
         json=request_body
     )
     response = response.json()
-    return response["items"]["id"] # or return response["items"][0]["id"]
+    return response["id"] # or return response["items"][0]["id"]
   
   
 def add_song(playlist_id, urls):
