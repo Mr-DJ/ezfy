@@ -84,26 +84,25 @@ def get_spotify_uri(track, artist):
   
 def initiate_playlist():
     
-    request_body = json.dumps(
-        {
+    request_body = {
             "name": "New Playlist",
             "description": "Songs",
             "public": True,
         }
-    )
+    
   
     query = "https://api.spotify.com/v1/users/{}/playlists".format(
         spotify_user_id)
     response = requests.post(
         query,
-        data=request_body,
         headers={
             "Content-Type": "application/json",
             "Authorization": "Bearer {}".format(spotify_token),
         },
+        json=request_body
     )
     response = response.json()
-    return response["id"]
+    return response["items"]["id"] # or return response["items"][0]["id"]
   
   
 def add_song(playlist_id, urls):
