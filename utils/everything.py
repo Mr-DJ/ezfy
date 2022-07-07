@@ -1,66 +1,40 @@
 import os
-import google_auth_oauthlib.flow
-import googleapiclient.discovery
-import googleapiclient.errors
-import youtube_dl
 import requests
 import json
 import urllib.parse as ul
+from pyyoutube import Api
+import json
+import urllib.request
+import urllib
+
 spotify_token = '' #this is where the spotify token should be entered
 spotify_user_id = '' #the spotify user_id
-scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
-  
-  #below function is the youtube prewritten playlist fetch code
-def get_play():
-  
-    # Disable OAuthlib's HTTPS verification when running locally.
-    # *DO NOT* leave this option enabled in production
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" 
-    #Normally, OAuthLib will raise an InsecureTransportError 
-    # if you attempt to use OAuth2 over HTTP, rather than HTTPS. 
-    # Setting this environment variable will prevent this error from being raised. 
-    # This is mostly useful for local testing, or automated tests. Never set this variable in 
-    # production. REMEMBER THIS PART !!!!!!!!
-  
-    api_service_name = "youtube"
-    api_version = "v3"
-    client_secrets_file = "" #this is the place where the program refers to the client _secrets file
-  
-    # Get credentials and create an API client
-    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-        client_secrets_file, scopes)
-    credentials = flow.run_console()
-    youtube = googleapiclient.discovery.build(
-        api_service_name, api_version, credentials=credentials)
-  
-    request = youtube.playlistItems().list(
-        part="snippet",
-        playlistId="" #enter the playlist id over here, i.e the final bit of text in your youtube playlist link
-    )
-    response = request.execute()
-  
-    return response
+scopes = ["https://www.googleapis.com/auth/youtube.readonly"] # leave it unchanged
+yt_api_key = "" # enter your YT api key
+playlist_id = "" #desired playlist
+list = []
+def get_play(playlist_id): #extract a list of video Id from a given playlist
+    api = Api(api_key=yt_api_key)
+    song_list = []
+    get_play = api.get_playlist_items(playlist_id=playlist_id,count=None)
+    for i in range(0,len(get_play.items)):
+        song_list.append(get_play.items[i].snippet.resourceId.videoId)
+
+    return song_list
   
   
-def extract_youtube_song(dic):
-   
+def extract_song(video_id): #extract names of songs from Yt video id
+    params = {"format": "json", "url": "https://www.youtube.com/watch?v=%s" % video_id}
+    url = "https://www.youtube.com/oembed"
+    query_string = urllib.parse.urlencode(params)
+    url = url + "?" + query_string
+    with urllib.request.urlopen(url) as response:
+        response_text = response.read()
+        data = json.loads(response_text.decode())
+        song_name = data['title']
+    return song_name
   
-    url = "https://www.youtube.com/watch?v="
-    info = []
-    
-    for i in range(len(dic["items"])):
-  
-        video_url = url+str(dic["items"][i]["snippet"]
-                            ['resourceId']['videoId'])
-        details = youtube_dl.YoutubeDL(
-            {}).extract_info(video_url, download=False)
-        track, artist = details['track'], details['artist']
-  
-        info.append((track, artist))
-    return info
-  
-  
-def get_spotify_uri(track):
+def get_spotify_uri(track): #get Uniform Resource Identifier(URI) of a given track name
     track = ul.quote(track)
     query = "https://api.spotify.com/v1/search?q={}&type=track".format(
         track,  
@@ -80,7 +54,7 @@ def get_spotify_uri(track):
     return uri
   
   
-def initiate_playlist():
+def initiate_playlist(): #create a new playlist the given user's library
     
     request_body = {
             "name": "New Playlist",
@@ -103,7 +77,7 @@ def initiate_playlist():
     return response["id"] # or return response["items"][0]["id"]
   
   
-def add_song(playlist_id, uris):
+def add_song(playlist_id, uris): #add songs to user's playlist 
     """Add all liked songs into a new Spotify playlist"""
   
     request_data = {
@@ -122,26 +96,26 @@ def add_song(playlist_id, uris):
         }
     )
     try:
-        response.json()['snapshot_id']
+        response.json()['snapshot_id'] # every transaction returns a snapshot, we can validate it this way
         return "songs added successfully"
     except:
         return "Couldn't add song"
   
   
-# this function runs to get the prewritten youtube playlist code, i.e receiving playlist data
-response = get_play()
-  
-# this extracts a spotify playlist
-play_id = initiate_playlist()
-  
-# extracts the artist name and 
-song_info = extract_youtube_song(response)
-  
-# getting url for spotify songs
-  
-urls = []
-for i in range(len(response['items'])):
-    urls.append(get_spotify_uri(song_info[i][0], song_info[i][1]))
-  
-# adding song to new playlist
-add_song(play_id, urls)
+
+# iterate through the video IDs and add name of the songs to a list
+for i in get_play(playlist_id):
+    try:
+        list.append(extract_song(i))
+    except:
+        continue
+
+# print(list)
+
+#iterate through the list of songs and add track to spotify playlist
+spotify_playlist_id = initiate_playlist()
+for j in list :
+    try:
+        add_song(spotify_playlist_id,get_spotify_uri(j))
+    except:
+        continue
