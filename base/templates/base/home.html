@@ -16,9 +16,12 @@
     <p class="desc">Convert your playlists between Youtube and Spotify!</p>
 
     <div class="inputs">
-        <input type="text" placeholder="Enter playlist/song link">
-        <div class="search_btn">Search</div>
+        <form action="/youtoob" method="GET">
+            <input name="ytInput" type="text" placeholder="Enter playlist/song link">
+            <input class="search_btn" type="submit" value="Search">
+        </form>
     </div>
-
+    <h1>{{ ytOutput }}</h1>
+        
 
 {% include "footer.html" %}
