@@ -15,12 +15,10 @@
     <h1>EZFY</h1>
     <p class="desc">Convert your playlists between Youtube and Spotify!</p>
 
-    <div class="inputs">
-        <form action="/youtoob" method="GET">
-            <input name="ytInput" type="text" placeholder="Enter playlist/song link">
-            <input class="search_btn" type="submit" value="Search">
-        </form>
-    </div>
+    <form class="inputs" action="/youtoob" method="GET">
+        <input class="song_link" name="ytInput" type="text" placeholder="Enter playlist/song link">
+        <input class="search_btn" type="submit" value="Search">
+    </form>
     <h1>{{ ytOutput }}</h1>
         
 
