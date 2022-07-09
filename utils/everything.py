@@ -6,13 +6,18 @@ from pyyoutube import Api
 import json
 import urllib.request
 import urllib
+from decouple import config
 
 spotify_token = '' #this is where the spotify token should be entered
 spotify_user_id = '' #the spotify user_id
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"] # leave it unchanged
-yt_api_key = "" # enter your YT api key
+yt_api_key = config("YT_KEY") # enter your YT api key
 playlist_id = "" #desired playlist
 list = []
+
+def printURL(url): # test function
+    return "YOU ENTERED THE FOLLOWING URL: " + url
+
 def get_play(playlist_id): #extract a list of video Id from a given playlist
     api = Api(api_key=yt_api_key)
     song_list = []
@@ -21,8 +26,6 @@ def get_play(playlist_id): #extract a list of video Id from a given playlist
         song_list.append(get_play.items[i].snippet.resourceId.videoId)
 
     return song_list
-  
-  
 def extract_song(video_id): #extract names of songs from Yt video id
     params = {"format": "json", "url": "https://www.youtube.com/watch?v=%s" % video_id}
     url = "https://www.youtube.com/oembed"
