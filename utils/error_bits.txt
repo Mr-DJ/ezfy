@@ -1,5 +1,0 @@
-spotify token
-client_secrets_file
-everythign needs to be only functons so it can be imported even with nothing configured(like the variables n shi)
-make a local .env in the root folder of this project on your pc 
-configure your secrets and use python/decouple to configure your secrets so they import fine during runtime
