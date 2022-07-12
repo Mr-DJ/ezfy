@@ -1,3 +1,4 @@
+from dis import dis
 import os
 import requests
 import json
@@ -7,6 +8,7 @@ import json
 import urllib.request
 import urllib
 from decouple import config
+import re
 
 # spotify_token = '' #this is where the spotify token should be entered
 # spotify_user_id = '' #the spotify user_id
@@ -130,3 +132,43 @@ class yt2spoti:
                 self.add_song(spotify_playlist_id,self.get_spotify_uri(j))
             except:
                 continue
+
+
+class spoti2yt:
+    def __init__(self,link,access_token):
+        self.link = link
+        self.access_token = access_token
+
+    def get_play(self):
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            
+            'Authorization': 'Bearer ' + self.access_token
+        }    
+        url ='https://api.spotify.com/v1/playlists/{}/tracks?market=IN&fields=items(track)'.format(
+            self.link[34:]
+        ) # get id from link and format it to the url
+        response = requests.get(url, headers=headers)
+        list = []
+        for i in response.json()['items']:
+            track = i['track']['name'] # get track name 
+            artist = i['track']['album']['artists'][0]["name"]      # get the artist's name      
+            list.append("{track} by {artist}".format(track=track,artist=artist))
+        
+        return list
+        
+    def convert(self):
+        dict = {}
+        for song_name in self.get_play():
+            search_string = ul.quote(song_name)#encode search strings
+
+            yt_search_query = "https://www.youtube.com/results?search_query=" + search_string # get yt url
+
+            html = urllib.request.urlopen(yt_search_query) #request html page
+            video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())#look for video ids
+            yt_link = "https://www.youtube.com/watch?v=" + video_ids[0]#pick the first link
+            dict[song_name] = yt_link
+
+        songs_json = json.dumps(dict,indent=4)
+        return songs_json
