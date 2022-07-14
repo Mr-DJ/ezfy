@@ -137,6 +137,7 @@ class yt2spoti:
 class spoti2yt:
     def __init__(self,link,access_token):
         self.link = link
+        self.id = link[34:56]
         self.access_token = access_token
 
     def get_play(self):
@@ -147,13 +148,13 @@ class spoti2yt:
             'Authorization': 'Bearer ' + self.access_token
         }    
         url ='https://api.spotify.com/v1/playlists/{}/tracks?market=IN&fields=items(track)'.format(
-            self.link[34:]
+            self.id
         ) # get id from link and format it to the url
         response = requests.get(url, headers=headers)
         list = []
         for i in response.json()['items']:
             track = i['track']['name'] # get track name 
-            artist = i['track']['album']['artists'][0]["name"]      # get the artist's name      
+            artist = i['track']['album']['artists'][0]["name"]      # get the artist's name    
             list.append("{track} by {artist}".format(track=track,artist=artist))
         
         return list
