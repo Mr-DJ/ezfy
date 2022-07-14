@@ -18,12 +18,11 @@ import re
 
 
 class yt2spoti:
-    def __init__(self,spotify_token,spotify_user_id,yt_api_key,playlist_id):
+    def __init__(self,spotify_token,yt_api_key,playlist_id):
         self.spotify_token = spotify_token
-        self.spotify_user_id =spotify_user_id
         self.yt_api_key = yt_api_key
-        self.playlist_id =playlist_id
-
+        self.playlist_id = playlist_id
+        self.spotify_user_id = self.get_spotify_user_id()
 
     list = []
     def printURL(url): # test function
@@ -67,7 +66,16 @@ class yt2spoti:
     
         return uri
     
+    def get_spotify_user_id(self):
+        headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + self.spotify_token
+    }
+        response = requests.get('https://api.spotify.com/v1/me', headers=headers)
+        return response.json()['id']
     
+
     def initiate_playlist(self): #create a new playlist the given user's library
         
         request_body = {
@@ -78,7 +86,7 @@ class yt2spoti:
         
     
         query = "https://api.spotify.com/v1/users/{}/playlists".format(
-            self.spotify_user_id)
+             self.spotify_user_id)
         response = requests.post(
             query,
             headers={
