@@ -26,8 +26,6 @@ class yt2spoti:
 
 
     list = []
-    def printURL(url): # test function
-        return "YOU ENTERED THE FOLLOWING URL: " + url
 
     def get_play(self,playlist_id): #extract a list of video Id from a given playlist
         api = Api(api_key=self.yt_api_key)
@@ -111,7 +109,7 @@ class yt2spoti:
         )
         try:
             response.json()['snapshot_id'] # every transaction returns a snapshot, we can validate it this way
-            return "songs added successfully"
+            return "Songs added successfully"
         except:
             return "Couldn't add song"
     
@@ -153,7 +151,7 @@ class spoti2yt:
         list = []
         for i in response.json()['items']:
             track = i['track']['name'] # get track name 
-            artist = i['track']['album']['artists'][0]["name"]      # get the artist's name      
+            artist = i['track']['album']['artists'][0]["name"] # get the artist's name      
             list.append("{track} by {artist}".format(track=track,artist=artist))
         
         return list
@@ -161,13 +159,13 @@ class spoti2yt:
     def convert(self):
         dict = {}
         for song_name in self.get_play():
-            search_string = ul.quote(song_name)#encode search strings
+            search_string = ul.quote(song_name) #encode search strings
 
             yt_search_query = "https://www.youtube.com/results?search_query=" + search_string # get yt url
 
             html = urllib.request.urlopen(yt_search_query) #request html page
-            video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())#look for video ids
-            yt_link = "https://www.youtube.com/watch?v=" + video_ids[0]#pick the first link
+            video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode()) #look for video ids
+            yt_link = "https://www.youtube.com/watch?v=" + video_ids[0] #pick the first link
             dict[song_name] = yt_link
 
         songs_json = json.dumps(dict,indent=4)
