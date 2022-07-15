@@ -1,16 +1,22 @@
-from django.shortcuts import render
+from urllib import response
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from utils import controller
 
 # Create your views here.
 def home(request):
-    return render(request, 'base/home.html')
+    if not 'loggedIn' in request.session:
+        request.session['loggedIn'] = False
+    return render(request, 'base/home.html',{'loggedIn': controller.logState(request.session['loggedIn'])})
 
 def youtoob(request):
     print("this is a simple response")
     print(request.GET['ytInput'])
-    # return HttpResponse("""everything.printURL(request.GET['ytInput'])
+    return render(request, 'base/home.html', {'ytOutput':controller.conversion_type(request.GET['ytInput']), 'loggedIn': controller.logState(request.session['loggedIn'])})
+
+def login(request): 
+    controller.login()
+    if controller.login != '':
+        request.session['loggedIn'] = True 
+    return redirect('/')
     
-    # return render(request, 'base/home.html', {'ytOutput':request.GET['ytInput']})
-    # q = spotify_auth.get_spoti_access_token()
-    return render(request, 'base/home.html', {'ytOutput':controller.conversion_type(request.GET['ytInput'])})

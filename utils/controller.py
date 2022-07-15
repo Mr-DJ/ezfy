@@ -2,8 +2,6 @@ from utils import everything
 from utils import spotify_auth
 from decouple import config
 
-p = everything.yt2spoti('a','b','c','d')
-q = everything.spoti2yt('a','b')
 
 def conversion_type(url):
     if(url[0:25] == 'https://www.youtube.com/p'): # Convert YT to Spotify
@@ -11,3 +9,12 @@ def conversion_type(url):
     elif(url[0:25] == 'https://open.spotify.com/'): # Convert Spotify to YT
         return "You entered a spotify link"
     return "invalid link"
+
+def login():
+    token = spotify_auth.get_spoti_access_token(config('CLIENT_ID'), config('CLIENT_SECRET'))
+    return token
+
+def logState(state):
+    if state:
+        return 'Logged In Successfully'
+    return 'Login'

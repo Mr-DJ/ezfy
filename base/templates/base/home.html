@@ -10,6 +10,13 @@
         <div class="nav-links">
             <a href="https://github.com/Mr-DJ/ezfy" target="_blank">Github</a>
         </div>
+        <div class="nav-links">
+            {% if loggedIn == 'Login' %}
+                <a href="/login">{{ loggedIn }}</a>
+            {% else %}
+                <p>{{ loggedIn }}</p>
+            {% endif %}            
+        </div>
     </nav>
 
     <h1>EZFY</h1>
