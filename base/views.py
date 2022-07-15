@@ -11,6 +11,7 @@ def home(request):
     return render(request, 'base/home.html',{'loggedIn': controller.logState(request.session['loggedIn'])})
 
 def convert(request):
+    controller.login()
     print(request.GET['ytInput'])
     # request.session['convertURI'] = request.GET['ytInput']
     return render(request, 'base/home.html', {'ytOutput':controller.start_conversion(request.GET['ytInput']), 'loggedIn': controller.logState(request.session['loggedIn'])})
