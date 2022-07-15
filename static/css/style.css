@@ -74,6 +74,12 @@ nav{
     align-items: center;
 }
 
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
 /* inputs and search_btn styles */
 .song_link{
     width: 100%;
