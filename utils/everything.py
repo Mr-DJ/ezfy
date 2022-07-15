@@ -66,10 +66,10 @@ class yt2spoti:
     
     def get_spotify_user_id(self):
         headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + self.spotify_token
-    }
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + self.spotify_token
+        }
         response = requests.get('https://api.spotify.com/v1/me', headers=headers)
         return response.json()['id']
     
@@ -138,12 +138,12 @@ class yt2spoti:
                 self.add_song(spotify_playlist_id,self.get_spotify_uri(j))
             except:
                 continue
+        return "https://open.spotify.com/playlist/" + spotify_playlist_id
 
 
 class spoti2yt:
-    def __init__(self,link,access_token):
-        self.link = link
-        self.id = link[34:56]
+    def __init__(self, list_id, access_token):
+        self.id = list_id
         self.access_token = access_token
 
     def get_play(self):

@@ -7,12 +7,13 @@ from utils import controller
 def home(request):
     if not 'loggedIn' in request.session:
         request.session['loggedIn'] = False
+        
     return render(request, 'base/home.html',{'loggedIn': controller.logState(request.session['loggedIn'])})
 
-def youtoob(request):
-    print("this is a simple response")
+def convert(request):
     print(request.GET['ytInput'])
-    return render(request, 'base/home.html', {'ytOutput':controller.conversion_type(request.GET['ytInput']), 'loggedIn': controller.logState(request.session['loggedIn'])})
+    # request.session['convertURI'] = request.GET['ytInput']
+    return render(request, 'base/home.html', {'ytOutput':controller.start_conversion(request.GET['ytInput']), 'loggedIn': controller.logState(request.session['loggedIn'])})
 
 def login(request): 
     controller.login()
