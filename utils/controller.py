@@ -19,16 +19,14 @@ def start_conversion(url):
     elif spMatch is not None: # Convert Spotify to YT
         spListId = spMatch.group(1)
         sp = everything.spoti2yt(spListId, login())
-        return json.dumps(sp.convert())
+        return sp.convert()
     return "Invalid Link"
 
 def login():
     token = spotify_auth.get_spoti_access_token(config('CLIENT_ID'), config('CLIENT_SECRET'))
-    print(token)
     return token
 
 def logState(state):
-    print(state)
     if state:
         return 'Logged In Successfully. Log Out?'
     return 'Login'
