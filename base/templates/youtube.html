@@ -1,0 +1,17 @@
+{% load static %}
+{% load extra_filters %}
+<div class="container"> 
+    <div class="results">
+        {% for name, url in ytOutput.items %}
+            <div class="item">
+                <img src="logo.png" alt="embed">
+                {% with name|split:" by " as details %}
+                    <h2>{{ details.0 }} <span>{{ details.1 }}</span></h2>
+                {% endwith %} 
+                <!-- <p class="duration">4:00</p> -->
+                <p class="duration">{{ url }}</p>
+                <i class="copy fa-solid fa-copy" aria-hidden="true"></i><span class="sr-only">copy to clipboard</span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="copy-all"><h2>Copy to Clipboard <i class="fa-solid fa-copy"></i></h2></div>

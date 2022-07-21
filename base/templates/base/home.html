@@ -26,7 +26,9 @@
         <input class="song_link" name="ytInput" type="text" placeholder="Enter playlist/song link">
         <input class="search_btn" type="submit" value="Search">
     </form>
-    <h1>{{ ytOutput }}</h1>
-        
-
-{% include "footer.html" %}
+    {% if c_type == 'sp2yt' %}
+        {% include "youtube.html" %}
+    {% else %}
+        <h1>{{ ytOutput }}</h1>
+    {% endif %}
+{% include "footer.html" %}        
