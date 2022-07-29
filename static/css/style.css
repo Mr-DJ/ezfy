@@ -49,7 +49,7 @@ a{
     text-decoration: none;
     color: inherit;
 }
-a:hover{
+a:hover, a i:hover{
     color: var(--c4);
 }
 
@@ -74,8 +74,14 @@ nav{
     align-items: center;
 }
 
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
 /* inputs and search_btn styles */
-.inputs input{
+.song_link{
     width: 100%;
     padding: 1rem 2rem;
     border: 3px solid var(--c1);
@@ -97,66 +103,8 @@ nav{
     border-radius: 25px;
     margin: 0 auto;
 }
-.search_btn:hover, .copy:hover, .copy-all:hover{
+.search_btn:hover{
     cursor: pointer;
-}
-
-/* results styles */
-.results{
-    margin-top: 5rem;
-    border-radius: 15px 15px 0 0;
-    border: 3px solid var(--c1);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-height: 600px;
-    overflow: auto;
-}
-.results::-webkit-scrollbar{
-    width: 5px;
-}
-.results::-webkit-scrollbar-track{
-    border-radius: 15px;
-    margin-top: 5.5px;
-    margin-left: 5rem;
-}
-
-.item{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.item h2{
-    flex-basis: 60%;
-    font-size: 1.2rem;
-}
-
-.item span{
-    display: block;
-    font-size: 0.9em;
-    font-weight: 300;
-}
-
-.copy-all{
-    padding: 1rem;
-    margin-bottom: 5rem;
-    background-color: var(--c3);
-    border-radius: 0 0 15px 15px;
-}
-
-.copy-all h2{
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    font-size: 1.3rem;
-}
-
-/* keeping length of song hidden for smaller screens */
-.duration{
-    display: none;
 }
 
 /* footer styles */
@@ -166,17 +114,15 @@ footer{
     left: 0;
     right: 0;
     padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 30%;
 }
 footer p{
     margin: 0.5rem;
-}
-
-/* 375px media query */
-@media (min-width: 375px)
-{
-    .duration{
-        display: block;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 450px media query */
@@ -189,7 +135,7 @@ footer p{
         font-size: 6rem;
     }
 
-    .inputs input{
+    .song_link{
         margin: 4rem auto 0.8rem;
     }
 
@@ -208,7 +154,7 @@ footer p{
         font-size: 7rem;
     }
 
-    .inputs input{
+    .song_link{
         margin: 5rem auto 0.8rem;
     }
 
@@ -231,7 +177,7 @@ footer p{
         margin: 6rem auto;
     }
 
-    .inputs input{
+    .song_link{
         flex-basis: 70%;
         border-radius: 30px 0 0 30px;
         border: none;
@@ -260,12 +206,12 @@ footer p{
     }
     h1{
         text-align: left;
-        margin: 10rem auto -2rem;
+        margin: 9.5rem auto -2rem;
     }
     .desc{
         font-size: 1.5rem;
     }
-    .inputs, .results, .copy-all{
+    .inputs{
         max-width: 1200px;
         margin-left: 0;
     }
@@ -278,23 +224,5 @@ footer p{
     }
     .inputs{
         margin-top: 4rem;
-    }
-}
-
-/* for tiny screens */
-@media (max-width: 319px)
-{
-    body > *{
-        display:none;
-    }
-
-    body::after{
-        display: table;
-        content:'get a bigger screen bruh';
-        font-size: large;
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        right: 20px;
     }
 }
