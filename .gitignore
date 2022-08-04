@@ -175,3 +175,5 @@ cython_debug/
 .env
 test.py
 test.html
+
+.sqlite3
