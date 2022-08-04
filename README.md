@@ -12,10 +12,9 @@ Display all the music in your spotify library as YT links and share it with your
 ### create a virtual environment (recommended) </br>
 ### Activate your virtual enviroment
 ```
-pip install requirements.txt
+python -m pip install -r requirements.txt
 
 python manage.py runserver
 
 ```
- 
- The web app is has Django as its backend and is powered by Heroku.
+ This web app has Django as its backend and is powered by Heroku.
