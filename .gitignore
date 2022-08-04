@@ -176,4 +176,4 @@ cython_debug/
 test.py
 test.html
 
-*.sqlite3
+db.sqlite3
