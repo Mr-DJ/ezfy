@@ -7,7 +7,6 @@ from pyyoutube import Api
 import json
 import urllib.request
 import urllib
-from decouple import config
 import re
 
 # spotify_token = '' #this is where the spotify token should be entered

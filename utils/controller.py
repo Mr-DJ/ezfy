@@ -2,7 +2,6 @@ from utils import everything
 from utils import spotify_auth
 import re
 import json
-from decouple import config
 import os
 
 class migrate:
