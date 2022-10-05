@@ -2,8 +2,7 @@ from utils import everything
 from utils import spotify_auth
 import re
 import json
-from decouple import config
-
+import os
 
 class migrate:
     c_type = ''
@@ -21,7 +20,7 @@ class migrate:
         if ytMatch is not None: # Convert YT to Spotify
             self.c_type = 'yt2sp'
             ytListId = ytMatch.group(1)
-            yt = everything.yt2spoti(login(), config('YT_KEY'), ytListId)
+            yt = everything.yt2spoti(login(), os.environ.get('YT_KEY'), ytListId)
             return yt.convert()
         elif spMatch is not None: # Convert Spotify to YT
             self.c_type = 'sp2yt'
@@ -31,7 +30,7 @@ class migrate:
         return "Invalid Link"
 
 def login():
-    token = spotify_auth.get_spoti_access_token(config('CLIENT_ID'), config('CLIENT_SECRET'))
+    token = spotify_auth.get_spoti_access_token(os.environ.get('CLIENT_ID'), os.environ.get('CLIENT_SECRET'))
     return token
 
 def logState(state):
