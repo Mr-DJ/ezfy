@@ -17,4 +17,6 @@ python -m pip install -r requirements.txt
 python manage.py runserver
 
 ```
- This web app has Django as its backend and is powered by Heroku.
+ This web app has Django as its backend and is powered by Heroku. 
+ 
+ Project url [https://cryptic-peak-53817.herokuapp.com/](https://cryptic-peak-53817.herokuapp.com/)
