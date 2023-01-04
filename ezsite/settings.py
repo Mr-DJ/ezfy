@@ -26,6 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+DB_PASS = config('DB_PASS')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -84,9 +86,13 @@ WSGI_APPLICATION = 'ezsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd4jeic5od7ecfd',
+        'USER': 'dliqpyjqqzujgs',
+        'PASSWORD': DB_PASS,
+        'HOST': 'ec2-3-93-206-109.compute-1.amazonaws.com',
+        'PORT':  '5432'
     }
 }
 
